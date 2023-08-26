@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            text-align: center;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+        }
+
+        h1 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        label, select, button {
+            display: block;
+            margin: 10px 0;
+            color: #555;
+        }
+
+        select, button {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+            font-size: 16px;
+        }
+
+        button {
+            cursor: pointer;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        input[type="number"], input[type="text"] {
+            width: 95%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            -webkit-appearance: none;
+            margin: 0;
+            -moz-appearance: textfield;
+        }
+
+        input[type="text"] {
+            background-color: #f9f9f9;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Temperature Converter</h1>
+        <label for="temperature">Enter Temperature:</label>
+        <input type="number" class="input-box" id="temperature" step="any">
+        
+        <label>Select Current Unit:</label>
+        <select id="fromUnit">
+            <option value="celsius">Celsius</option>
+            <option value="kelvin">Kelvin</option>
+            <option value="fahrenheit">Fahrenheit</option>
+        </select>
+
+        <label>Convert To:</label>
+        <select id="toUnit">
+            <option value="celsius">Celsius</option>
+            <option value="kelvin">Kelvin</option>
+            <option value="fahrenheit">Fahrenheit</option>
+        </select>
+
+        <button onclick="convertTemperature()">Convert</button>
+
+        <label for="result">Result:</label>
+        <input type="text" class="input-box" id="result" readonly>
+    </div>
+
+    <script>
+        function convertTemperature() {
+            const temperature = parseFloat(document.getElementById('temperature').value);
+            const fromUnit = document.getElementById('fromUnit').value;
+            const toUnit = document.getElementById('toUnit').value;
+            let result;
+
+            if (fromUnit === 'celsius') {
+                if (toUnit === 'kelvin') {
+                    result = temperature + 273.15;
+                } else if (toUnit === 'fahrenheit') {
+                    result = (temperature * 9/5) + 32;
+                } else {
+                    result = temperature;
+                }
+            } else if (fromUnit === 'kelvin') {
+                if (toUnit === 'celsius') {
+                    result = temperature - 273.15;
+                } else if (toUnit === 'fahrenheit') {
+                    result = (temperature - 273.15) * 9/5 + 32;
+                } else {
+                    result = temperature;
+                }
+            } else if (fromUnit === 'fahrenheit') {
+                if (toUnit === 'celsius') {
+                    result = (temperature - 32) * 5/9;
+                } else if (toUnit === 'kelvin') {
+                    result = (temperature - 32) * 5/9 + 273.15;
+                } else {
+                    result = temperature;
+                }
+            }
+
+            document.getElementById('result').value = result.toFixed(2);
+        }
+    </script>
+</body>
+</html>
